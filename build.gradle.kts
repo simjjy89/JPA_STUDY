@@ -1,16 +1,37 @@
-plugins {
-    kotlin("jvm") version "1.5.31"
+buildscript {
+    dependencies {
+        classpath ("org.jetbrains.kotlin:kotlin-noarg:1.5.31")
+    }
 }
 
-group = "jpa-basic"
-version = "1.0.0"
+plugins {
+    kotlin("jvm") version "1.5.31"
+    kotlin("plugin.jpa") version "1.5.31"
+    kotlin("plugin.allopen") version "1.5.10"
+}
+
+
+group = "org.example"
+version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.7.0")
-    implementation("org.hibernate:hibernate-entitymanager:5.6.8.Final")
-    implementation("com.h2database:h2:2.1.212")
+   // runtimeOnly("com.h2database:h2")
+    implementation("org.hibernate:hibernate-entitymanager:5.3.11.Final")
+    implementation(kotlin("stdlib"))
+    implementation ("com.h2database:h2:2.1.214")
+    implementation("org.jetbrains.kotlin:kotlin-noarg:1.5.31")
+}
+
+noArg {
+    annotation("com.my.Annotation")
+}
+
+allOpen {
+    annotation("javax.persistence.Entity")
+    annotation("javax.persistence.Embeddable")
+    annotation("javax.persistence.MappedSuperclass")
 }
